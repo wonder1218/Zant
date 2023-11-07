@@ -1,10 +1,10 @@
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader')
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/package/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'zant-ui.js',
+    filename: 'zwant-ui.js',
     library: 'ZantUiLibrary',
     libraryTarget: 'umd'
   },

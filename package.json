@@ -1,21 +1,18 @@
 {
-  "name": "zwant",
+  "name": "zw_ant",
   "version": "0.1.0",
   "private": false,
   "description": "Mobile UI Components built on Vue",
-  "main": "lib/vant.cjs.js",
-  "module": "es/index.mjs",
-  "style": "lib/index.css",
-  "typings": "lib/index.d.ts",
-  "unpkg": "lib/vant.min.js",
-  "jsdelivr": "lib/vant.min.js",
+  "main": "lib/zwant.common.js",
+  "license": "ISC", 
   "files": [
     "es",
     "lib"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lib": "vue-cli-service build --target lib --name zwant --dest lib package/index.js"
   },
   "dependencies": {
     "core-js": "^3.8.3",
