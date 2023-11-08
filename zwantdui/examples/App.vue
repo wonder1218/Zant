@@ -35,6 +35,11 @@
       <zw-button type="warning" size="small">警告按钮</zw-button>
       <zw-button type="danger" size="medium">危险按钮</zw-button>
     </div>
+
+    <p>------------checkbox------------</p>
+    <zw-check-box v-model="checked" type="square">男</zw-check-box>
+    <zw-check-box v-model="pickChecked" disabled>男</zw-check-box>
+    <zw-check-box v-model="pickChecked" disabled>女</zw-check-box>
   </div>
 </template>
 
@@ -42,6 +47,12 @@
 
 export default {
   name: 'App',
+  data () {
+    return {
+      checked: true,
+      pickChecked: false,
+    }
+  },
   methods:{
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "zwantd",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "description": "Mobile UI Components built on Vue",
   "main": "lib/index.umd.min.js",

@@ -45,6 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   ZwButton: function() { return /* reexport */ packages_button_src; },
+  ZwCheckBox: function() { return /* reexport */ packages_checkbox_src; },
   install: function() { return /* reexport */ install; }
 });
 
@@ -65,51 +66,56 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/button/src/index.vue?vue&type=template&id=0634ea22&scoped=true
-var render = function render(){var _vm=this,_c=_vm._self._c;return _c('button',{staticClass:"sweet-button",class:[
-          `sweet-button--${_vm.type}`,
-          `sweet-button--${_vm.size}`,
-          {
-            'is-disabled': _vm.disabled,
-            'is-round': _vm.round,
-            'is-circle': _vm.circle
-          }
-        ],attrs:{"type":_vm.type,"disabled":_vm.disabled},on:{"click":_vm.handleClick}},[(_vm.$slots.default)?_c('span',[_vm._t("default")],2):_vm._e()])
+;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/checkbox/src/index.vue?vue&type=template&id=566fa9fa&scoped=true
+var render = function render(){var _vm=this,_c=_vm._self._c;return _c('label',{staticClass:"checkbox"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.checked),expression:"checked"}],class:[
+            `zw-check-box--${_vm.type}`,
+            `zw-check-box--${_vm.size}`,
+            {
+              'is-disabled': _vm.disabled,
+              'is-round': _vm.round,
+              'is-circle': _vm.circle
+            }
+          ],attrs:{"type":"checkbox","disabled":_vm.disabled},domProps:{"checked":Array.isArray(_vm.checked)?_vm._i(_vm.checked,null)>-1:(_vm.checked)},on:{"change":[function($event){var $$a=_vm.checked,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.checked=$$a.concat([$$v]))}else{$$i>-1&&(_vm.checked=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.checked=$$c}},_vm.handleChange]}}),_c('span',{staticClass:"checkbox__icon"}),_vm._t("default")],2)
 }
 var staticRenderFns = []
 
 
-;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/button/src/index.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/checkbox/src/index.vue?vue&type=script&lang=js
 
-  /* harmony default export */ var srcvue_type_script_lang_js = ({
-    name: "zwButton",
-    inject: {},
-    props: {
-      type: {
-        type: String,
-        default: 'default'
-      },
-      size:{
-        size: String,
-        default: 'default'
-      },
-      disabled: Boolean,
-      round: Boolean,
-      circle: Boolean
+/* harmony default export */ var srcvue_type_script_lang_js = ({
+  name: 'ZwCheckBox',
+  props:{
+    type: {
+      type: String,
+      default: 'round'
     },
-    methods:{
-      handleClick(evt){
-        this.$emit('click', evt);
-      }
+    size:{
+      size: String,
+      default: 'small'
+    },
+    disabled: Boolean,
+    round: Boolean,
+    circle: Boolean
+  },
+  data() {
+    return {
+      checked: false
+    };
+  },
+  methods: {
+    handleChange(event) {
+      this.checked = event.target.checked;
+      this.$emit('change', this.checked);
     }
-  });
-  
-;// CONCATENATED MODULE: ./packages/button/src/index.vue?vue&type=script&lang=js
- /* harmony default export */ var button_srcvue_type_script_lang_js = (srcvue_type_script_lang_js); 
-;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-32.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-32.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-32.use[2]!./node_modules/less-loader/dist/cjs.js??clonedRuleSet-32.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/button/src/index.vue?vue&type=style&index=0&id=0634ea22&prod&scoped=true&lang=less
+  }
+});
+
+;// CONCATENATED MODULE: ./packages/checkbox/src/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var checkbox_srcvue_type_script_lang_js = (srcvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-12.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/checkbox/src/index.vue?vue&type=style&index=0&id=566fa9fa&prod&scoped=true&lang=css
 // extracted by mini-css-extract-plugin
 
-;// CONCATENATED MODULE: ./packages/button/src/index.vue?vue&type=style&index=0&id=0634ea22&prod&scoped=true&lang=less
+;// CONCATENATED MODULE: ./packages/checkbox/src/index.vue?vue&type=style&index=0&id=566fa9fa&prod&scoped=true&lang=css
 
 ;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -209,7 +215,7 @@ function normalizeComponent(
   }
 }
 
-;// CONCATENATED MODULE: ./packages/button/src/index.vue
+;// CONCATENATED MODULE: ./packages/checkbox/src/index.vue
 
 
 
@@ -219,17 +225,93 @@ function normalizeComponent(
 /* normalize component */
 
 var component = normalizeComponent(
-  button_srcvue_type_script_lang_js,
+  checkbox_srcvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "0634ea22",
+  "566fa9fa",
   null
   
 )
 
-/* harmony default export */ var button_src = (component.exports);
+/* harmony default export */ var checkbox_src = (component.exports);
+;// CONCATENATED MODULE: ./packages/checkbox/src/index.js
+
+
+checkbox_src.install = function (Vue){
+    Vue.component(checkbox_src.name, checkbox_src);
+}
+
+/* harmony default export */ var packages_checkbox_src = (checkbox_src);
+
+;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/button/src/index.vue?vue&type=template&id=588a5a02&scoped=true
+var srcvue_type_template_id_588a5a02_scoped_true_render = function render(){var _vm=this,_c=_vm._self._c;return _c('button',{staticClass:"sweet-button",class:[
+          `sweet-button--${_vm.type}`,
+          `sweet-button--${_vm.size}`,
+          {
+            'is-disabled': _vm.disabled,
+            'is-round': _vm.round,
+            'is-circle': _vm.circle
+          }
+        ],attrs:{"type":_vm.type,"disabled":_vm.disabled},on:{"click":_vm.handleClick}},[(_vm.$slots.default)?_c('span',[_vm._t("default")],2):_vm._e()])
+}
+var srcvue_type_template_id_588a5a02_scoped_true_staticRenderFns = []
+
+
+;// CONCATENATED MODULE: ./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/button/src/index.vue?vue&type=script&lang=js
+
+  /* harmony default export */ var button_srcvue_type_script_lang_js = ({
+    name: "ZwButton",
+    inject: {},
+    props: {
+      type: {
+        type: String,
+        default: 'default'
+      },
+      size:{
+        size: String,
+        default: 'default'
+      },
+      disabled: Boolean,
+      round: Boolean,
+      circle: Boolean
+    },
+    methods:{
+      handleClick(evt){
+        this.$emit('click', evt);
+      }
+    }
+  });
+  
+;// CONCATENATED MODULE: ./packages/button/src/index.vue?vue&type=script&lang=js
+ /* harmony default export */ var packages_button_srcvue_type_script_lang_js = (button_srcvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-32.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-32.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-32.use[2]!./node_modules/less-loader/dist/cjs.js??clonedRuleSet-32.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./packages/button/src/index.vue?vue&type=style&index=0&id=588a5a02&prod&scoped=true&lang=less
+// extracted by mini-css-extract-plugin
+
+;// CONCATENATED MODULE: ./packages/button/src/index.vue?vue&type=style&index=0&id=588a5a02&prod&scoped=true&lang=less
+
+;// CONCATENATED MODULE: ./packages/button/src/index.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var src_component = normalizeComponent(
+  packages_button_srcvue_type_script_lang_js,
+  srcvue_type_template_id_588a5a02_scoped_true_render,
+  srcvue_type_template_id_588a5a02_scoped_true_staticRenderFns,
+  false,
+  null,
+  "588a5a02",
+  null
+  
+)
+
+/* harmony default export */ var button_src = (src_component.exports);
 ;// CONCATENATED MODULE: ./packages/button/src/index.js
 
 
@@ -241,9 +323,11 @@ button_src.install = function (Vue){
 
 ;// CONCATENATED MODULE: ./packages/index.js
 
+
 // 存放组件的数组
 const components = [
-    packages_button_src
+    packages_button_src,
+    packages_checkbox_src
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。
