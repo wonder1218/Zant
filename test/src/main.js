@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-// import { ZwButton } from '../packages/index'
-import '../lib/index.css'
-import { ZwButton } from '../lib/index.umd.min.js'
+import  { ZwButton }  from 'zwantd'
+import 'zwantd/lib/index.css';
 
 Vue.config.productionTip = false
 Vue.use(ZwButton);

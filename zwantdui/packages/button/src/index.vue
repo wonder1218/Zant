@@ -19,7 +19,7 @@
   
   <script>
   export default {
-    name: "zwButton",
+    name: "ZwButton",
     inject: {},
     props: {
       type: {

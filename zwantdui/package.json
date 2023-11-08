@@ -1,7 +1,14 @@
 {
   "name": "zwantd",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
+  "description": "Mobile UI Components built on Vue",
+  "main": "lib/index.umd.min.js",
+  "license": "ISC", 
+  "files": [
+    "es",
+    "lib"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
