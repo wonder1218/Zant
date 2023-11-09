@@ -1,186 +1,344 @@
 <template>
-    <button :type="type"
-            @click="handleClick"
-            class="sweet-button"
-            :class="[
-              `sweet-button--${type}`,
-              `sweet-button--${size}`,
-              {
-                'is-disabled': disabled,
-                'is-round': round,
-                'is-circle': circle
-              }
-            ]"
-            :disabled="disabled">
-      <!--使用默认插槽来填充文本-->
-      <span v-if="$slots.default"><slot></slot></span>
-    </button>
-  </template>
-  
-  <script>
+  <button
+    class="zw-button"
+    @click="handleClick"
+    :disabled="buttonDisabled || loading"
+    :autofocus="autofocus"
+    :type="nativeType"
+    :class="[
+      type ? 'zw-button--' + type : '',
+      buttonSize ? 'zw-button--' + buttonSize : '',
+      {
+        'is-disabled': buttonDisabled,
+        'is-loading': loading,
+        'is-plain': plain,
+        'is-round': round,
+        'is-circle': circle
+      }
+    ]"
+  >
+    <i class="zw-icon-loading" v-if="loading"></i>
+    <i :class="icon" v-if="icon && !loading"></i>
+    <span v-if="$slots.default"><slot></slot></span>
+  </button>
+</template>
+<script>
   export default {
-    name: "ZwButton",
-    inject: {},
+    name: 'ZwButton',
+
+    inject: {
+      zwForm: {
+        default: ''
+      },
+      zwFormItem: {
+        default: ''
+      }
+    },
+
     props: {
       type: {
         type: String,
         default: 'default'
       },
-      size:{
-        size: String,
-        default: 'default'
+      size: String,
+      icon: {
+        type: String,
+        default: ''
       },
+      nativeType: {
+        type: String,
+        default: 'button'
+      },
+      loading: Boolean,
       disabled: Boolean,
+      plain: Boolean,
+      autofocus: Boolean,
       round: Boolean,
       circle: Boolean
     },
-    methods:{
-      handleClick(evt){
+
+    computed: {
+      _zwFormItemSize() {
+        return (this.zwFormItem || {}).zwFormItemSize;
+      },
+      buttonSize() {
+        return this.size || this._zwFormItemSize || (this.$ELEMENT || {}).size;
+      },
+      buttonDisabled() {
+        return this.$options.propsData.hasOwnProperty('disabled') ? this.disabled : (this.zwForm || {}).disabled;
+      }
+    },
+
+    methods: {
+      handleClick(evt) {
         this.$emit('click', evt);
       }
     }
-  }
-  </script>
+  };
+</script>
   
-  <style scoped lang="less">
-  .sweet-button {
-    padding: 8px 15px;
-    border: none;
-    color: white;
-    font-size: 14px;
-    border-radius: 4px;
-    outline: none;
-    transition: .1s;
-    margin-left: 10px;
+  <style lang="scss">
+  @charset "UTF-8";
+  @import "../../common/var";
+  @import "../../mixins/button";
+  @import "../../mixins/mixins";
+  @import "../../mixins/utils";
+
+  @include b(button) {
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
     cursor: pointer;
+    background: $--button-default-background-color;
+    border: $--border-base;
+    border-color: $--button-default-border-color;
+    color: $--button-default-font-color;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: $--button-font-weight;
+    @include utils-user-select(none);
+    & + & {
+      margin-left: 10px;
+    }
+
+    @include button-size($--button-padding-vertical, $--button-padding-horizontal, $--button-font-size, $--button-border-radius);
+
+    &:hover,
+    &:focus {
+      color: $--color-primary;
+      border-color: $--color-primary-light-7;
+      background-color: $--color-primary-light-9;
+    }
+
+    &:active {
+      color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+      border-color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+      outline: none;
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
+    & [class*="zw-icon-"] {
+      & + span {
+        margin-left: 5px;
+      }
+    }
+
+    @include when(plain) {
+      &:hover,
+      &:focus {
+        background: $--color-white;
+        border-color: $--color-primary;
+        color: $--color-primary;
+      }
+
+      &:active {
+        background: $--color-white;
+        border-color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+        color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+        outline: none;
+      }
+    }
+
+    @include when(active) {
+      color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+      border-color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+    }
+
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus {
+        color: $--button-disabled-font-color;
+        cursor: not-allowed;
+        background-image: none;
+        background-color: $--button-disabled-background-color;
+        border-color: $--button-disabled-border-color;
+      }
+
+      &.zw-button--text {
+        background-color: transparent;
+      }
+
+      &.is-plain {
+        &,
+        &:hover,
+        &:focus {
+          background-color: $--color-white;
+          border-color: $--button-disabled-border-color;
+          color: $--button-disabled-font-color;
+        }
+      }
+    }
+
+    @include when(loading) {
+      position: relative;
+      pointer-events: none;
+
+      &:before {
+        pointer-events: none;
+        content: '';
+        position: absolute;
+        left: -1px;
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        border-radius: inherit;
+        background-color: rgba(255,255,255,.35);
+      }
+    }
+    @include when(round) {
+      border-radius: 20px;
+      padding: 12px 23px;
+    }
+    @include when(circle) {
+      border-radius: 50%;
+      padding: $--button-padding-vertical;
+    }
+    @include m(primary) {
+      @include button-variant($--button-primary-font-color, $--button-primary-background-color, $--button-primary-border-color);
+    }
+    @include m(success) {
+      @include button-variant($--button-success-font-color, $--button-success-background-color, $--button-success-border-color);
+    }
+    @include m(warning) {
+      @include button-variant($--button-warning-font-color, $--button-warning-background-color, $--button-warning-border-color);
+    }
+    @include m(danger) {
+      @include button-variant($--button-danger-font-color, $--button-danger-background-color, $--button-danger-border-color);
+    }
+    @include m(info) {
+      @include button-variant($--button-info-font-color, $--button-info-background-color, $--button-info-border-color);
+    }
+    @include m(medium) {
+      @include button-size($--button-medium-padding-vertical, $--button-medium-padding-horizontal, $--button-medium-font-size, $--button-medium-border-radius);
+      @include when(circle) {
+        padding: $--button-medium-padding-vertical;
+      }
+    }
+    @include m(small) {
+      @include button-size($--button-small-padding-vertical, $--button-small-padding-horizontal, $--button-small-font-size, $--button-small-border-radius);
+      @include when(circle) {
+        padding: $--button-small-padding-vertical;
+      }
+    }
+    @include m(mini) {
+      @include button-size($--button-mini-padding-vertical, $--button-mini-padding-horizontal, $--button-mini-font-size, $--button-mini-border-radius);
+      @include when(circle) {
+        padding: $--button-mini-padding-vertical;
+      }
+    }
+    @include m(text) {
+      border-color: transparent;
+      color: $--color-primary;
+      background: transparent;
+      padding-left: 0;
+      padding-right: 0;
+
+      &:hover,
+      &:focus {
+        color: mix($--color-white, $--color-primary, $--button-hover-tint-percent);
+        border-color: transparent;
+        background-color: transparent;
+      }
+      &:active {
+        color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+        border-color: transparent;
+        background-color: transparent;
+      }
+
+      &.is-disabled,
+      &.is-disabled:hover,
+      &.is-disabled:focus {
+        border-color: transparent;
+      }
+    }
   }
-  
-  .sweet-button--default {
-    color: #606266;
-    background-color: white;
-    border: 1px solid #dcdfe6;
-  }
-  
-  .sweet-button--default:hover, .sweet-button--default:focus{
-    color: #669fff;
-    background-color: #ecf5ff;
-    border: 1px solid #c9e3ff;
-  }
-  
-  .sweet-button--default.is-disabled {
-    color: #c0c4cc;
-    background-color: #fff;
-    border-color: #ebeef5;
-    cursor: not-allowed;
-  }
-  
-  .sweet-button--medium{
-    font-size: 14px;
-    padding: 6px 15px;
-  }
-  
-  .sweet-button--small{
-    font-size: 12px;
-    padding: 6px 15px;
-  }
-  
-  .sweet-button--mini{
-    font-size: 12px;
-    padding: 4px 13px;
-  }
-  
-  .sweet-button--primary {
-    color: #fff;
-    background-color: #409eff;
-    border-color: #409eff;
-  }
-  
-  .sweet-button--primary:hover,.sweet-button--primary:focus {
-    color: white;
-    background-color: rgba(32, 160, 255, 0.7);
-  }
-  
-  .sweet-button--primary.is-disabled {
-    color: #fff;
-    background-color: #a0cfff;
-    border-color: #a0cfff;
-    cursor: not-allowed;
-  }
-  
-  .sweet-button--success {
-    color: #fff;
-    background-color: #67c23a;
-    border-color: #67c23a;
-  }
-  
-  .sweet-button--success:hover,.sweet-button--success:focus {
-    color: white;
-    background-color: rgba(103, 194, 54, 0.7);
-  }
-  
-  .sweet-button--success.is-disabled {
-    color: #fff;
-    background-color: #b3e19d;
-    border-color: #b3e19d;
-    cursor: not-allowed;
-  }
-  
-  .sweet-button--info {
-    color: #fff;
-    background-color: #909399;
-    border-color: #909399;
-  }
-  
-  .sweet-button--info:hover, .sweet-button--info:focus{
-    color: white;
-    background-color: rgba(144, 147, 153, 0.7);
-  }
-  
-  .sweet-button--info.is-disabled {
-    color: #fff;
-    background-color: #c8c9cc;
-    border-color: #c8c9cc;
-    cursor: not-allowed;
-  }
-  
-  .sweet-button--warning {
-    color: #fff;
-    background-color: #e6a23c;
-    border-color: #e6a23c;
-  }
-  
-  .sweet-button--warning:hover, .sweet-button--warning:focus{
-    color: white;
-    background-color: rgba(230, 162, 60, 0.7);
-  }
-  
-  .sweet-button--warning.is-disabled {
-    color: #fff;
-    background-color: #f3d19e;
-    border-color: #f3d19e;
-    cursor: not-allowed;
-  }
-  
-  .sweet-button--danger {
-    color: #fff;
-    background-color: #f56c6c;
-    border-color: #f56c6c;
-  }
-  
-  .sweet-button--danger:hover, .sweet-button--danger:focus {
-    color: white;
-    background-color: rgba(245, 108, 108, 0.7);
-  }
-  
-  .sweet-button--danger.is-disabled {
-    color: #fff;
-    background-color: #fab6b6;
-    border-color: #fab6b6;
-    cursor: not-allowed;
-  }
-  
-  .is-round{
-    border-radius: 20px;
+
+  @include b(button-group) {
+    @include utils-clearfix;
+    display: inline-block;
+    vertical-align: middle;
+
+    & > .zw-button {
+      float: left;
+      position: relative;
+      & + .zw-button {
+        margin-left: 0;
+      }
+      &.is-disabled {
+        z-index: 1;
+      }
+      &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      &:first-child:last-child {
+        border-top-right-radius: $--button-border-radius;
+        border-bottom-right-radius: $--button-border-radius;
+        border-top-left-radius: $--button-border-radius;
+        border-bottom-left-radius: $--button-border-radius;
+
+        &.is-round {
+          border-radius: 20px;
+        }
+
+        &.is-circle {
+          border-radius: 50%;
+        }
+      }
+      &:not(:first-child):not(:last-child) {
+        border-radius: 0;
+      }
+      &:not(:last-child) {
+        margin-right: -1px;
+      }
+
+      &:not(.is-disabled) {
+        &:hover,
+        &:focus,
+        &:active {
+          z-index: 1;
+        }
+      }
+
+      @include when(active) {
+        z-index: 1;
+      }
+    }
+    
+    & > .zw-dropdown {
+      & > .zw-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-color: rgba($--color-white, 0.5);
+      }
+    }
+
+    @each $type in (primary, success, warning, danger, info) {
+      .zw-button--#{$type} {
+        &:first-child {
+          border-right-color: rgba($--color-white, 0.5);
+        }
+        &:last-child {
+          border-left-color: rgba($--color-white, 0.5);
+        }
+        &:not(:first-child):not(:last-child) {
+          border-left-color: rgba($--color-white, 0.5);
+          border-right-color: rgba($--color-white, 0.5);
+        }
+      }
+    }
   }
   </style>
   

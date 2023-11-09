@@ -1,5 +1,12 @@
 // vue.config.js
 module.exports = {
+    // css: {
+    //     loaderOptions: {
+    //         sass: {
+    //             additionalData: `@import "@/styles/variables.scss";` // 导入全局的SCSS变量文件
+    //         }
+    //     }
+    // },  
   pages: {
       index: {
           // 修改入口

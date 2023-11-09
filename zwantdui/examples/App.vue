@@ -37,9 +37,16 @@
     </div>
 
     <p>------------checkbox------------</p>
-    <zw-check-box v-model="checked" type="square">男</zw-check-box>
-    <zw-check-box v-model="pickChecked" disabled>男</zw-check-box>
-    <zw-check-box v-model="pickChecked" disabled>女</zw-check-box>
+    <zw-checkbox v-model="checked" type="square">男</zw-checkbox>
+    <zw-checkbox v-model="pickChecked" disabled>男</zw-checkbox>
+    <zw-checkbox v-model="pickChecked" disabled>女</zw-checkbox>
+    <p>------------input------------</p>
+    <zw-input v-model="input" placeholder="请输入内容"></zw-input>
+    <zw-input  placeholder="请输入内容" disabled></zw-input>
+    <zw-input  placeholder="请输入内容" readonly></zw-input>
+    <zw-input  placeholder="请输入内容" disabled readonly></zw-input>
+    <p>------------select------------</p>
+
   </div>
 </template>
 
@@ -51,6 +58,7 @@ export default {
     return {
       checked: true,
       pickChecked: false,
+      input: '',
     }
   },
   methods:{
